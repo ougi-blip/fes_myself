@@ -41,43 +41,60 @@
 </head>
 <body>
   
-
-
-  <ons-page>
-    <ons-toolbar>
-      <div class="center" id="toolbar-title"></div>
-    </ons-toolbar>
-    <ons-tabbar position="auto">
-        <ons-tab label="通知"page="notification.html" icon="ion-ios-home">
-        </ons-tab>
-
-
-
-
+  <ons-navigator animation="slide" var="navi">
     
-      <ons-tab label="Tab 1" page="tab1.html" active>
-      </ons-tab>
-      <ons-tab label="Tab 2" page="tab2.html">
-      </ons-tab>
-    </ons-tabbar>
-  </ons-page>
+    <ons-page>
+      <ons-toolbar>
+        <div class="center" id="toolbar-title">Title</div>
+      </ons-toolbar>
+      
+      </ons-tabbar>
+      <ons-tabbar position="auto">
+        <ons-tab label="Page1"></ons-tab>
+        <ons-tab label="通知" page="applycation.html" icon="md-home"></ons-tab>
+        
 
-  <template id="tab1.html">
-    <ons-page id="first-page">
-      <p style="text-align: center;">
-        This is the first page.
-      </p>
+      </ons-tabbar>
+        
+    
+    
+    
+      </ons-tabbar>
     </ons-page>
-  </template>
-
-  <template id="tab2.html">
-    <ons-page id="second-page">
-      <p style="text-align: center;">
-        This is the second page.
-      </p>
-  <template id="notification.html">
+    <!--<ons-template id="home.html">
+      <style>
+  
+  
+  
+      </style>
       <div>
-    </ons-page>
-  </template>
-</body>
-</html>
+        <ons-button modifier="quiet" onclick="popTimes()" class="Time-button">
+          <img src="" alt="">
+    
+        </ons-button>
+      </div>
+      
+    </ons-template>
+    <ons-template id="situation.html">
+      <ons-page id="situation">
+        -->
+    <template id="notification.html">
+      <ons-page>
+        <ons-button modifier="default" navi-click="navi.popPage(applycation.html)" class="notifi_class">pop this</ons-button>
+      </ons-page>
+    </template>
+  
+    <template id="applycation.html">
+      <ons-page>
+        <p style="text-align: center;">This is a second page</p>  
+      </ons-page>
+
+    </template>
+  
+      
+  </ons-navigator>     
+  </body>
+  </html>
+  
+  
+  
