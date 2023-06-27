@@ -13,16 +13,26 @@
   <link rel="stylesheet" href="css/style.css">
 
   <script>
-    const personalkey = "a2431bbe50198a38f73294bd3f243bbb9e3470af5d72247a414457a4b826f702"
-    const clientkey = "948e7e40ae83574e3475a86a0dc7076f2bacafd7effe67ae638be781ef4e9359"
-
-    const ncmb = new NCMB(personalkey,clientkey);
+    
     
     ons.ready(function() {
       console.log("Onsen UI is ready!");
     });
 
-    document.addEventListener('show', function(event) {
+    window.fn = {};
+    window.fn.open = function() {
+      var menu = document.getElementById('menu');
+      menu.open();
+    };
+    window.fn.load = function(page) {
+      var content = document.getElementById('content');
+      var menu = document.getElementById('menu');
+      content
+        .load(page)
+        .then(menu.close.bind(menu));
+    };
+
+    /*document.addEventListener('show', function(event) {
       var page = event.target;
       var titleElement = document.querySelector('#toolbar-title');
 
@@ -31,7 +41,7 @@
       } else if (page.matches('#second-page')) {
         titleElement.innerHTML = 'My app - Page 2';
       }
-    });
+    });*/
 
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
@@ -40,47 +50,70 @@
   </script>
 </head>
 <body>
-  
-  <ons-navigator animation="slide" var="navi">
+  <ons-navigator animation="slide" var="app.navi"></ons-navigator>
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="ion-ios-menu
+          ,maerial:md-menu"></ons-icon>
+        </ons-toolabar-button>
+      </div>
+      <div class="center" id="toolbar-title">Title</div>
+    </ons-toolbar>
     
-    <ons-page>
-      <ons-toolbar>
-        <div class="center" id="toolbar-title">Title</div>
-      </ons-toolbar>
+    </ons-tabbar>
+    <ons-tabbar position="auto">
       
-      </ons-tabbar>
-      <ons-tabbar position="auto">
-        <ons-tab label="Page1"></ons-tab>
-        <ons-tab label="通知" page="applycation.html" icon="md-home"></ons-tab>
-        
+      <ons-tab label="通知" page="notification.html" icon="md-home" ng-click="app.navi.pushPage()"></ons-tab>
+      <ons-tab label="Page1" ></ons-tab>
 
-      </ons-tabbar>
-        
+    </ons-tabbar>
+      
+  
+  
+  
+    </ons-tabbar>
+  </ons-page>
+
+
+    <ons-splitter>
+      <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+        <ons-page>
+          <ons-list>
+            <ons-list-item tappble onclick="fn.load(notification.html)">
+              Home
+            </ons-list-item tappable>
+            <ons-list-item>
+              settings
+            </ons-list-item>
+          </ons-list>
+        </ons-page>
+      </ons-splitter-side>
+      <ons-splitter-content id="content" page="notification.html"></ons-splitter-content>
+    </ons-splitter>
     
     
-    
-      </ons-tabbar>
-    </ons-page>
-    <!--<ons-template id="home.html">
+  
+    <template id="home.html">
       <style>
-  
-  
-  
+       
       </style>
       <div>
         <ons-button modifier="quiet" onclick="popTimes()" class="Time-button">
-          <img src="" alt="">
-    
+          push it
         </ons-button>
       </div>
       
-    </ons-template>
-    <ons-template id="situation.html">
-      <ons-page id="situation">
-        -->
+    </template>
+    <template id="situation.html">
+      <ons-page id="situation"></ons-page>
+    </template>
+      
+        
     <template id="notification.html">
       <ons-page>
-        <ons-button modifier="default" navi-click="navi.popPage(applycation.html)" class="notifi_class">pop this</ons-button>
+        <ons-button  modifier="default" ng-click="app.navi.pushPage('applycation.html')" >pop this</ons-button>
       </ons-page>
     </template>
   
@@ -89,10 +122,7 @@
         <p style="text-align: center;">This is a second page</p>  
       </ons-page>
 
-    </template>
-  
-      
-  </ons-navigator>     
+    </template>  
   </body>
   </html>
   
